@@ -1,7 +1,8 @@
 <?php
 
-use App\Controllers\HomeController;
+use App\Controllers\BookController;
 
 return [
-    ['GET', '/', [HomeController::class, 'index']],
+    ['GET', '/', [BookController::class, 'index']],
+    ['GET', '/books', [BookController::class, 'index']],
 ];
