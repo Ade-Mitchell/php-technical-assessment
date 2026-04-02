@@ -1,8 +1,10 @@
 <?php
 
-use App\Controllers\BookController;
-
 return [
-    ['GET', '/', [BookController::class, 'index']],
-    ['GET', '/books', [BookController::class, 'index']],
+    ['GET', '/', function () {
+        echo 'root route works';
+    }],
+    ['GET', '/books', function () {
+        echo 'books route works';
+    }],
 ];
