@@ -7,7 +7,6 @@ namespace App\Controllers;
 use App\Core\Validator;
 use App\Core\Logger;
 use App\Core\Auth;
-
 use App\Models\Book;
 
 class BookController
@@ -20,6 +19,7 @@ class BookController
             exit;
         }
     }
+
     public function index(): void
     {
         $bookModel = new Book();
@@ -41,6 +41,7 @@ class BookController
 
         require __DIR__ . '/../../resources/views/books/create.php';
     }
+
     public function store(): void
     {
         $this->requireAuth();
@@ -71,8 +72,11 @@ class BookController
             echo 'Something went wrong. Please try again.';
         }
     }
+
     public function edit(): void
     {
+        $this->requireAuth();
+
         $id = (int) ($_GET['id'] ?? 0);
 
         $bookModel = new Book();
@@ -90,6 +94,8 @@ class BookController
 
     public function update(): void
     {
+        $this->requireAuth();
+
         $id = (int) ($_POST['id'] ?? 0);
 
         $data = [
@@ -120,8 +126,11 @@ class BookController
             echo 'Something went wrong. Please try again.';
         }
     }
+
     public function delete(): void
     {
+        $this->requireAuth();
+
         $id = (int) ($_POST['id'] ?? 0);
 
         try {
@@ -136,4 +145,5 @@ class BookController
             http_response_code(500);
             echo 'Something went wrong.';
         }
-    }}
+    }
+}
