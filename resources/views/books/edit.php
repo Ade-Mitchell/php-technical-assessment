@@ -10,6 +10,9 @@
         <div>
             <label>Title</label><br>
             <input type="text" name="title" value="<?= htmlspecialchars($book['title']) ?>">
+            <?php if (!empty($errors['title'])): ?>
+                <p><?= htmlspecialchars($errors['title']) ?></p>
+            <?php endif; ?>
         </div>
 
         <br>
@@ -17,6 +20,9 @@
         <div>
             <label>Author</label><br>
             <input type="text" name="author" value="<?= htmlspecialchars($book['author']) ?>">
+            <?php if (!empty($errors['author'])): ?>
+                <p><?= htmlspecialchars($errors['author']) ?></p>
+            <?php endif; ?>
         </div>
 
         <br>
@@ -24,6 +30,9 @@
         <div>
             <label>Published Year</label><br>
             <input type="number" name="published_year" value="<?= htmlspecialchars((string) $book['published_year']) ?>">
+            <?php if (!empty($errors['published_year'])): ?>
+                <p><?= htmlspecialchars($errors['published_year']) ?></p>
+            <?php endif; ?>
         </div>
 
         <br>

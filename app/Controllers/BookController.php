@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
+use App\Core\Validator;
 use App\Models\Book;
 
 class BookController
@@ -14,6 +15,34 @@ class BookController
         $books = $bookModel->all();
 
         require __DIR__ . '/../../resources/views/books/index.php';
+    }
+
+    public function create(): void
+    {
+        $errors = [];
+        require __DIR__ . '/../../resources/views/books/create.php';
+    }
+
+    public function store(): void
+    {
+        $data = [
+            'title' => $_POST['title'] ?? '',
+            'author' => $_POST['author'] ?? '',
+            'published_year' => $_POST['published_year'] ?? '',
+        ];
+
+        $errors = Validator::validateBook($data);
+
+        if (!empty($errors)) {
+            require __DIR__ . '/../../resources/views/books/create.php';
+            return;
+        }
+
+        $bookModel = new Book();
+        $bookModel->create($data);
+
+        header('Location: /books');
+        exit;
     }
 
     public function edit(): void
@@ -29,6 +58,7 @@ class BookController
             return;
         }
 
+        $errors = [];
         require __DIR__ . '/../../resources/views/books/edit.php';
     }
 
@@ -36,31 +66,23 @@ class BookController
     {
         $id = (int) ($_POST['id'] ?? 0);
 
-        $bookModel = new Book();
-        $bookModel->update($id, [
+        $data = [
             'title' => $_POST['title'] ?? '',
             'author' => $_POST['author'] ?? '',
             'published_year' => $_POST['published_year'] ?? '',
-        ]);
+        ];
 
-        header('Location: /books');
-        exit;
-    }
+        $errors = Validator::validateBook($data);
 
-    public function create(): void
-    {
-        require __DIR__ . '/../../resources/views/books/create.php';
-    }
-
-    public function store(): void
-    {
         $bookModel = new Book();
 
-        $bookModel->create([
-            'title' => $_POST['title'] ?? '',
-            'author' => $_POST['author'] ?? '',
-            'published_year' => $_POST['published_year'] ?? '',
-        ]);
+        if (!empty($errors)) {
+            $book = array_merge(['id' => $id], $data);
+            require __DIR__ . '/../../resources/views/books/edit.php';
+            return;
+        }
+
+        $bookModel->update($id, $data);
 
         header('Location: /books');
         exit;
