@@ -31,4 +31,19 @@ class BookController
 
         require __DIR__ . '/../../resources/views/books/edit.php';
     }
+
+    public function update(): void
+    {
+        $id = (int) ($_POST['id'] ?? 0);
+
+        $bookModel = new Book();
+        $bookModel->update($id, [
+            'title' => $_POST['title'] ?? '',
+            'author' => $_POST['author'] ?? '',
+            'published_year' => $_POST['published_year'] ?? '',
+        ]);
+
+        header('Location: /books');
+        exit;
+    }
 }

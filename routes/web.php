@@ -6,4 +6,5 @@ return [
     ['GET', '/', [BookController::class, 'index']],
     ['GET', '/books', [BookController::class, 'index']],
     ['GET', '/books/edit', [BookController::class, 'edit']],
+    ['POST', '/books/update', [BookController::class, 'update']],
 ];

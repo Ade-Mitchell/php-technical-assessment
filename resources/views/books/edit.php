@@ -10,24 +10,26 @@
 
 <p><a href="/books">Back to books</a></p>
 
-<form>
+<form action="/books/update" method="POST">
+    <input type="hidden" name="id" value="<?= htmlspecialchars((string) $book['id']) ?>">
+
     <div>
         <label>Title</label><br>
-        <input type="text" value="<?= htmlspecialchars($book['title']) ?>">
+        <input type="text" name="title" value="<?= htmlspecialchars($book['title']) ?>">
     </div>
 
     <br>
 
     <div>
         <label>Author</label><br>
-        <input type="text" value="<?= htmlspecialchars($book['author']) ?>">
+        <input type="text" name="author" value="<?= htmlspecialchars($book['author']) ?>">
     </div>
 
     <br>
 
     <div>
         <label>Published Year</label><br>
-        <input type="number" value="<?= htmlspecialchars((string) $book['published_year']) ?>">
+        <input type="number" name="published_year" value="<?= htmlspecialchars((string) $book['published_year']) ?>">
     </div>
 
     <br>

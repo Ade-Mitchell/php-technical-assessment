@@ -23,4 +23,20 @@ class Book
 
         return $book ?: null;
     }
+
+    public function update(int $id, array $data): bool
+    {
+        $stmt = Database::connection()->prepare(
+            'UPDATE books 
+             SET title = :title, author = :author, published_year = :published_year
+             WHERE id = :id'
+        );
+
+        return $stmt->execute([
+            'id' => $id,
+            'title' => $data['title'],
+            'author' => $data['author'],
+            'published_year' => $data['published_year'],
+        ]);
+    }
 }
