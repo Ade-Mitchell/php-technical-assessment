@@ -39,4 +39,18 @@ class Book
             'published_year' => $data['published_year'],
         ]);
     }
+
+    public function create(array $data): bool
+    {
+        $stmt = Database::connection()->prepare(
+            'INSERT INTO books (title, author, published_year)
+         VALUES (:title, :author, :published_year)'
+        );
+
+        return $stmt->execute([
+            'title' => $data['title'],
+            'author' => $data['author'],
+            'published_year' => $data['published_year'],
+        ]);
+    }
 }

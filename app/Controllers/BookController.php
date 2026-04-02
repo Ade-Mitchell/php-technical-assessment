@@ -46,4 +46,23 @@ class BookController
         header('Location: /books');
         exit;
     }
+
+    public function create(): void
+    {
+        require __DIR__ . '/../../resources/views/books/create.php';
+    }
+
+    public function store(): void
+    {
+        $bookModel = new Book();
+
+        $bookModel->create([
+            'title' => $_POST['title'] ?? '',
+            'author' => $_POST['author'] ?? '',
+            'published_year' => $_POST['published_year'] ?? '',
+        ]);
+
+        header('Location: /books');
+        exit;
+    }
 }
