@@ -13,9 +13,19 @@ class Router
     public function dispatch(string $method, string $uri): void
     {
         $path = parse_url($uri, PHP_URL_PATH);
+        $path = rtrim($path, '/');
+
+        if ($path === '') {
+            $path = '/';
+        }
 
         foreach ($this->routes as [$routeMethod, $routePath, $handler]) {
-            if ($routeMethod === $method && $routePath === $path) {
+            $normalizedRoutePath = rtrim($routePath, '/');
+            if ($normalizedRoutePath === '') {
+                $normalizedRoutePath = '/';
+            }
+
+            if ($routeMethod === $method && $normalizedRoutePath === $path) {
                 if (is_callable($handler)) {
                     $handler();
                     return;
