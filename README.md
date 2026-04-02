@@ -46,8 +46,8 @@ It demonstrates:
 ### 1. Clone repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/YOUR_REPO.git
-cd YOUR_REPO
+git clone https://github.com/Ade-Mitchell/php-technical-assessment.git
+cd php-technical-assessment
 ```
 
 ---

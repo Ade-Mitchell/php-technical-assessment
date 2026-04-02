@@ -1,27 +1,27 @@
 <?php ob_start(); ?>
 
     <h1>Login</h1>
+    <p class="muted">Sign in to manage book records.</p>
 
 <?php if (!empty($error)): ?>
-    <p><?= htmlspecialchars($error) ?></p>
+    <div class="error-text"><?= htmlspecialchars($error) ?></div>
 <?php endif; ?>
 
     <form action="/login" method="POST">
-        <div>
-            <label>Username</label><br>
+        <div class="form-group">
+            <label>Username</label>
             <input type="text" name="username" required>
         </div>
 
-        <br>
-
-        <div>
-            <label>Password</label><br>
+        <div class="form-group">
+            <label>Password</label>
             <input type="password" name="password" required>
         </div>
 
-        <br>
-
-        <button type="submit">Login</button>
+        <div class="actions">
+            <button type="submit" class="btn btn-primary">Login</button>
+            <a href="/books" class="btn btn-secondary">Back</a>
+        </div>
     </form>
 
 <?php
