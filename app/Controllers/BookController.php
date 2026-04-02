@@ -6,6 +6,7 @@ namespace App\Controllers;
 
 use App\Core\Validator;
 use App\Models\Book;
+use App\Core\Logger;
 
 class BookController
 {
@@ -38,13 +39,19 @@ class BookController
             return;
         }
 
-        $bookModel = new Book();
-        $bookModel->create($data);
+        try {
+            $bookModel = new Book();
+            $bookModel->create($data);
 
-        header('Location: /books');
-        exit;
+            header('Location: /books');
+            exit;
+        } catch (\Throwable $e) {
+            Logger::error($e->getMessage());
+
+            http_response_code(500);
+            echo 'Something went wrong. Please try again.';
+        }
     }
-
     public function edit(): void
     {
         $id = (int) ($_GET['id'] ?? 0);
@@ -82,20 +89,32 @@ class BookController
             return;
         }
 
-        $bookModel->update($id, $data);
+        try {
+            $bookModel->update($id, $data);
 
-        header('Location: /books');
-        exit;
+            header('Location: /books');
+            exit;
+        } catch (\Throwable $e) {
+            Logger::error($e->getMessage());
+
+            http_response_code(500);
+            echo 'Something went wrong. Please try again.';
+        }
     }
-
     public function delete(): void
     {
         $id = (int) ($_POST['id'] ?? 0);
 
-        $bookModel = new Book();
-        $bookModel->delete($id);
+        try {
+            $bookModel = new Book();
+            $bookModel->delete($id);
 
-        header('Location: /books');
-        exit;
-    }
-}
+            header('Location: /books');
+            exit;
+        } catch (\Throwable $e) {
+            Logger::error($e->getMessage());
+
+            http_response_code(500);
+            echo 'Something went wrong.';
+        }
+    }}
