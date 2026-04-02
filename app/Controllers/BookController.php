@@ -65,4 +65,15 @@ class BookController
         header('Location: /books');
         exit;
     }
+
+    public function delete(): void
+    {
+        $id = (int) ($_POST['id'] ?? 0);
+
+        $bookModel = new Book();
+        $bookModel->delete($id);
+
+        header('Location: /books');
+        exit;
+    }
 }

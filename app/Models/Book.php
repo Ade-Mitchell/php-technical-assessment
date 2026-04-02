@@ -53,4 +53,13 @@ class Book
             'published_year' => $data['published_year'],
         ]);
     }
+
+    public function delete(int $id): bool
+    {
+        $stmt = Database::connection()->prepare('DELETE FROM books WHERE id = :id');
+
+        return $stmt->execute([
+            'id' => $id,
+        ]);
+    }
 }

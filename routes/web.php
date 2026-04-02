@@ -11,4 +11,5 @@ return [
 
     ['GET', '/books/edit', [BookController::class, 'edit']],
     ['POST', '/books/update', [BookController::class, 'update']],
+    ['POST', '/books/delete', [BookController::class, 'delete']],
 ];
