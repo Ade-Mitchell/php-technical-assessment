@@ -18,6 +18,8 @@
                 by
                 <?= htmlspecialchars($book['author']) ?>
                 (<?= htmlspecialchars((string) $book['published_year']) ?>)
+                -
+                <a href="/books/edit?id=<?= $book['id'] ?>">Edit</a>
             </li>
         <?php endforeach; ?>
     </ul>

@@ -15,4 +15,20 @@ class BookController
 
         require __DIR__ . '/../../resources/views/books/index.php';
     }
+
+    public function edit(): void
+    {
+        $id = (int) ($_GET['id'] ?? 0);
+
+        $bookModel = new Book();
+        $book = $bookModel->find($id);
+
+        if (!$book) {
+            http_response_code(404);
+            echo 'Book not found';
+            return;
+        }
+
+        require __DIR__ . '/../../resources/views/books/edit.php';
+    }
 }
