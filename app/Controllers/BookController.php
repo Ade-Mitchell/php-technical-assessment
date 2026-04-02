@@ -5,11 +5,21 @@ declare(strict_types=1);
 namespace App\Controllers;
 
 use App\Core\Validator;
-use App\Models\Book;
 use App\Core\Logger;
+use App\Core\Auth;
+
+use App\Models\Book;
 
 class BookController
 {
+    private function requireAuth(): void
+    {
+        if (!Auth::check()) {
+            http_response_code(401);
+            echo 'Unauthenticated. Please log in.';
+            exit;
+        }
+    }
     public function index(): void
     {
         $bookModel = new Book();
@@ -20,12 +30,21 @@ class BookController
 
     public function create(): void
     {
+        $this->requireAuth();
+
         $errors = [];
+        $data = [
+            'title' => '',
+            'author' => '',
+            'published_year' => '',
+        ];
+
         require __DIR__ . '/../../resources/views/books/create.php';
     }
-
     public function store(): void
     {
+        $this->requireAuth();
+
         $data = [
             'title' => $_POST['title'] ?? '',
             'author' => $_POST['author'] ?? '',
