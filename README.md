@@ -17,6 +17,12 @@ It demonstrates:
 
 ---
 
+## Live Demo
+
+https://techtest.mitchell.cymru/books
+
+---
+
 ## Tech Stack
 
 * PHP 8.3
@@ -111,20 +117,19 @@ public/
 
 ## Authentication
 
-Use:
+This application uses a simple session-based authentication system.
 
-```
-Username: admin
-Password: password123
-```
+Use the following credentials:
+
+- Username: admin
+- Password: password123
 
 Authentication is required for:
 
-* create
-* edit
-* update
-* delete
-
+- Creating books
+- Editing books
+- Updating books
+- Deleting books
 ---
 
 ## Project Structure
@@ -141,6 +146,24 @@ resources/
 routes/
 storage/
 ```
+
+---
+## Database Schema
+
+The application uses a single `books` table with the following structure:
+
+- id (INT, primary key, auto increment)
+- title (VARCHAR)
+- author (VARCHAR)
+- published_year (INT)
+- created_at (TIMESTAMP)
+- updated_at (TIMESTAMP)
+
+The full schema and sample data are provided in:
+
+database/dump.sql
+
+Import this file into your MySQL database to set up the application.
 
 ---
 
@@ -167,6 +190,21 @@ Output:
 ```
 public/build/assets/
 ```
+
+Compiled frontend assets are committed to the repository and served directly in production.
+
+---
+
+## Architecture Overview
+
+The application follows a custom MVC pattern:
+
+- Router handles incoming requests and dispatches to controllers
+- Controllers handle request logic and coordinate models and views
+- Models interact with the database using PDO
+- Views render HTML using PHP templates
+
+PSR-4 autoloading is used to organise the codebase and automatically load classes.
 
 ---
 
