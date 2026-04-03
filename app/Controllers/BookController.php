@@ -14,8 +14,8 @@ class BookController
     private function requireAuth(): void
     {
         if (!Auth::check()) {
-            http_response_code(401);
-            echo 'Unauthenticated. Please log in.';
+            $_SESSION['auth_message'] = 'You need to be logged in to access that page.';
+            header('Location: /login');
             exit;
         }
     }

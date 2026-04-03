@@ -10,7 +10,9 @@ class AuthController
 {
     public function showLogin(): void
     {
-        $error = null;
+        $error = $_SESSION['auth_message'] ?? null;
+        unset($_SESSION['auth_message']);
+
         require __DIR__ . '/../../resources/views/auth/login.php';
     }
 
